@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  name: 'LocalContainer'
+  name: 'AgentPoolGroupProject'
 
 steps:
 - task: Maven@3
