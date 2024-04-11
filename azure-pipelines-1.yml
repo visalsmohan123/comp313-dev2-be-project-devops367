@@ -17,12 +17,9 @@ stages:
     displayName: 'Build Artifact'
 
     steps:
-    
-
     - task: Maven@3
       displayName: 'Maven pom.xml'
       inputs:
-      
         mavenPomFile: 'pom.xml'
         mavenOptions: '-Xmx3072m'
         javaHomeOption: 'JDKVersion'
@@ -31,10 +28,14 @@ stages:
         publishJUnitResults: true
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
         goals: 'package'
-        codeCoverageToolOption: JaCoCo
 
     - script: 'mvn test'
       displayName: 'Run unit tests'
+
+    - script: |
+        echo "Source Folder: $(system.defaultworkingdirectory)"
+        ls "$(system.defaultworkingdirectory)"
+      displayName: 'Log Source Folder and Contents'
 
     - task: CopyFiles@2
       displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
@@ -43,6 +44,11 @@ stages:
         Contents: '*/.jar'
         TargetFolder: '$(build.artifactstagingdirectory)'
       condition: succeededOrFailed()
+
+    - script: |
+        echo "Target Folder: $(build.artifactstagingdirectory)"
+        ls "$(build.artifactstagingdirectory)"
+      displayName: 'Log Target Folder and Contents'
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact: drop'
