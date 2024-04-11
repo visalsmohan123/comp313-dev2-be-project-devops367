@@ -35,8 +35,8 @@ stages:
     - script: |
         echo "Source Folder: $(system.defaultworkingdirectory)"
         dir "$(build.artifactstagingdirectory)"
-        echo "Source Folder: $(system.defaultworkingdirectory)/target"
-        dir "$(build.defaultworkingdirectory)"
+        echo "Source Folder: $(system.defaultworkingdirectory)\target"
+        dir "$(build.defaultworkingdirectory\target)"
       displayName: 'Log Source Folder and Contents'
 
     - task: CopyFiles@2
