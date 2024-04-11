@@ -17,7 +17,12 @@ stages:
     displayName: 'Build Artifact'
 
     steps:
-    
+    - task: Maven@3
+      displayName: 'Maven pom.xml'
+      inputs:
+        mavenPomFile: '$(Parameters.mavenPOMFile)'
+        codeCoverageToolOption: JaCoCo
+
     - task: Maven@3
       inputs:
         mavenPomFile: 'pom.xml'
