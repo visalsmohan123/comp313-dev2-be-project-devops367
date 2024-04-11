@@ -18,7 +18,7 @@ stages:
 
     steps:
     - script: |
-        mvn clean compile test
+         mvn clean compile test package
       displayName: 'Custom Maven Build Script'
 
     - script: |
