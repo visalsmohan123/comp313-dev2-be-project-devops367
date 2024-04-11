@@ -39,14 +39,13 @@ stages:
     - task: CopyFiles@2
       displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
       inputs:
-        SourceFolder: '$(system.defaultworkingdirectory)/target'
+        SourceFolder: '$(system.defaultworkingdirectory)\target'
         Contents: '*/.jar'
         TargetFolder: '$(build.artifactstagingdirectory)'
       condition: succeededOrFailed()
 
     - script: |
         echo "Target Folder: $(build.artifactstagingdirectory)"
-        ls "$(build.artifactstagingdirectory)"
       displayName: 'Log Target Folder and Contents'
 
     - task: PublishBuildArtifacts@1
