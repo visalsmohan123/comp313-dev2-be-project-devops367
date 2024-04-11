@@ -17,26 +17,15 @@ stages:
     displayName: 'Build Artifact'
 
     steps:
-    - task: Maven@3
-      displayName: 'Maven pom.xml'
-      inputs:
-        mavenPomFile: 'pom.xml'
-        mavenOptions: '-Xmx3072m'
-        javaHomeOption: 'JDKVersion'
-        jdkVersionOption: '1.17'
-        jdkArchitectureOption: 'x64'
-        publishJUnitResults: true
-        testResultsFiles: '**/surefire-reports/TEST-*.xml'
-        goals: 'package'
-
-    - script: 'mvn test'
-      displayName: 'Run unit tests'
+    - script: |
+        mvn clean compile test
+      displayName: 'Custom Maven Build Script'
 
     - script: |
         echo "Source Folder: $(system.defaultworkingdirectory)"
         dir "$(build.artifactstagingdirectory)"
         echo "Source Folder: $(system.defaultworkingdirectory)\target"
-        dir "$(build.defaultworkingdirectory\target)"
+        dir "$(system.defaultworkingdirectory)\target"
       displayName: 'Log Source Folder and Contents'
 
     - task: CopyFiles@2
