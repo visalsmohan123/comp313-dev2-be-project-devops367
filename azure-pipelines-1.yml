@@ -17,14 +17,12 @@ stages:
     displayName: 'Build Artifact'
 
     steps:
+    
+
     - task: Maven@3
       displayName: 'Maven pom.xml'
       inputs:
-        mavenPomFile: '$(mavenPOMFile)'
-        codeCoverageToolOption: JaCoCo
-
-    - task: Maven@3
-      inputs:
+      
         mavenPomFile: 'pom.xml'
         mavenOptions: '-Xmx3072m'
         javaHomeOption: 'JDKVersion'
@@ -33,6 +31,7 @@ stages:
         publishJUnitResults: true
         testResultsFiles: '**/surefire-reports/TEST-*.xml'
         goals: 'package'
+        codeCoverageToolOption: JaCoCo
 
     - script: 'mvn test'
       displayName: 'Run unit tests'
